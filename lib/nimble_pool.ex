@@ -84,7 +84,7 @@ defmodule NimblePool do
       the callback function passed to `checkout!/4`. `worker_state` and `pool_state`
       can potentially update the state of the checked-out worker and the pool.
 
-    * `{:remove, reason, pool_state}` — `NimblePool` will remove the checked-out worker and
+    * `{:remove, user_reason, pool_state}` — `NimblePool` will remove the checked-out worker and
       attempt to checkout another worker.
 
     * `{:skip, Exception.t(), pool_state}` — `NimblePool` will skip the checkout, the client will
