@@ -199,7 +199,7 @@ defmodule NimblePool do
     * `:timeout` whenever the client times out
     * one of `:throw`, `:error`, `:exit` whenever the client crashes with one
       of the respective reasons.
-    * `reason` if at any point you return `{:remove, reason}`
+    * `reason` if at any point you return `{:remove, reason}` or `{:remove, reason, pool_state}`
     * if any callback raises, the raised exception will be given as `reason`.
 
   It receives the latest known `worker_state`, which may not
