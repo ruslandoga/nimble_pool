@@ -119,7 +119,7 @@ defmodule NimblePool do
   > Avoid performing long work in here, instead do as much work as
   > possible on the client.
 
-  Once the connection is checked in, it may immediately be handed
+  Once the worker is checked in, it may immediately be handed
   to another client, without traversing any of the messages in the
   pool inbox.
 
