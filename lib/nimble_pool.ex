@@ -36,7 +36,9 @@ defmodule NimblePool do
   >
   > This callback is synchronous and therefore will block the pool, potentially
   > for a significant amount of time since it's executed in the pool process once
-  > per worker. > If you need to perform long initialization, consider using the
+  > per worker.
+  > 
+  > If you need to perform long initialization, consider using the
   > `{:async, fun, pool_state}` return type.
   """
   @doc callback: :worker
