@@ -198,7 +198,7 @@ defmodule NimblePool do
     * `:DOWN` whenever the client link breaks
     * `:timeout` whenever the client times out
     * one of `:throw`, `:error`, `:exit` whenever the client crashes with one
-      of the reasons above.
+      of the respective reasons.
     * `reason` if at any point you return `{:remove, reason}`
     * if any callback raises, the raised exception will be given as `reason`.
 
