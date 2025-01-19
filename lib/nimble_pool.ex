@@ -111,7 +111,7 @@ defmodule NimblePool do
 
   It receives the potentially-updated `client_state`, returned by the `checkout!/4`
   anonymous function, and it must return either
-  `{:ok, worker_state, pool_state}` or `{:remove, reason, pool_state}`.
+  `{:ok, worker_state, pool_state}` or `{:remove, user_reason, pool_state}`.
 
   > #### Blocking the pool {: .warning}
   >
