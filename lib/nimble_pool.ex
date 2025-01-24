@@ -36,7 +36,9 @@ defmodule NimblePool do
   >
   > This callback is synchronous and therefore will block the pool, potentially
   > for a significant amount of time since it's executed in the pool process once
-  > per worker. > If you need to perform long initialization, consider using the
+  > per worker.
+  > 
+  > If you need to perform long initialization, consider using the
   > `{:async, fun, pool_state}` return type.
   """
   @doc callback: :worker
@@ -82,7 +84,7 @@ defmodule NimblePool do
       the callback function passed to `checkout!/4`. `worker_state` and `pool_state`
       can potentially update the state of the checked-out worker and the pool.
 
-    * `{:remove, reason, pool_state}` — `NimblePool` will remove the checked-out worker and
+    * `{:remove, user_reason, pool_state}` — `NimblePool` will remove the checked-out worker and
       attempt to checkout another worker.
 
     * `{:skip, Exception.t(), pool_state}` — `NimblePool` will skip the checkout, the client will
@@ -109,7 +111,7 @@ defmodule NimblePool do
 
   It receives the potentially-updated `client_state`, returned by the `checkout!/4`
   anonymous function, and it must return either
-  `{:ok, worker_state, pool_state}` or `{:remove, reason, pool_state}`.
+  `{:ok, worker_state, pool_state}` or `{:remove, user_reason, pool_state}`.
 
   > #### Blocking the pool {: .warning}
   >
@@ -117,7 +119,7 @@ defmodule NimblePool do
   > Avoid performing long work in here, instead do as much work as
   > possible on the client.
 
-  Once the connection is checked in, it may immediately be handed
+  Once the worker is checked in, it may immediately be handed
   to another client, without traversing any of the messages in the
   pool inbox.
 
@@ -196,8 +198,8 @@ defmodule NimblePool do
     * `:DOWN` whenever the client link breaks
     * `:timeout` whenever the client times out
     * one of `:throw`, `:error`, `:exit` whenever the client crashes with one
-      of the reasons above.
-    * `reason` if at any point you return `{:remove, reason}`
+      of the respective reasons.
+    * `reason` if at any point you return `{:remove, reason}` or `{:remove, reason, pool_state}`
     * if any callback raises, the raised exception will be given as `reason`.
 
   It receives the latest known `worker_state`, which may not
